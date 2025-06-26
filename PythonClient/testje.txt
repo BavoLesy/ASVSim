@@ -1,0 +1,6 @@
+msgpack==1.1.0
+msgpack-python==0.5.6
+rpc-msgpack==0.6
+airsim==1.2.3
+cosysairsim==3.0.1
+tornado==6.4.2

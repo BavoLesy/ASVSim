@@ -1,0 +1,6 @@
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+	<PlatformToolset>v143</PlatformToolset>
+	<VCToolsInstallDir>C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\</VCToolsInstallDir>
+</PropertyGroup>
+</Project>

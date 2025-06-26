@@ -1,0 +1,11 @@
+rpc-msgpack==0.6
+msgpack-python==0.5.6
+msgpack-rpc-python==0.4.1
+tornado
+numpy
+gymnasium
+stable-baselines3
+wandb
+cosysairsim
+pillow
+opencv-python

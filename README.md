@@ -1,4 +1,6 @@
-# ASVSim
+# ASVSim - AirSim for Surface Vehicles
+![image](https://github.com/user-attachments/assets/9835edca-2f57-4dec-90bd-14bdaa56f2d5)
+
 [Documentation](https://bavolesy.github.io/idlab-asvsim-docs/)
 NOTE: We are currently working on this documentation. You may find some incomplete or outdated information. We will update it as soon as possible.
 

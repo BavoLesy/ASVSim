@@ -45,7 +45,7 @@ Please contact a IDLab/Cosys-Lab researcher to get more in depth information on 
 * Added support for joystick and keyboard control of vessels.
 * Added MacOS support.
 
-## Cosys-Lab Modifications
+## Cosys-AirSim Modifications
 * Added support for Unreal up to 5.4 ([Note that Unreal 5.3/5.4 breaks camera scene rendering by default in custom environments](https://cosys-lab.github.io/unreal_custenv#unreal-5354-scene-camera-bug))
 * Added [multi-layer annotation](https://cosys-lab.github.io/annotation) for groundtruth label generation with RGB, greyscale and texture options. Extensive API integration and available for camera and GPU-LiDAR sensors.
 * Added [Instance Segmentation](https://cosys-lab.github.io/instance_segmentation).
@@ -64,25 +64,21 @@ Please contact a IDLab/Cosys-Lab researcher to get more in depth information on 
 * Updated C++ [ROS2 implementation](https://cosys-lab.github.io/ros) to support custom Cosys-AirSim features.
 * Dropped support for Unity Environments.
 
-Some more details on our changes can be found in the [changelog](https://github.com/Cosys-Lab/Cosys-AirSim/blob/main/CHANGELOG.md).
+Some more details on our Cosys-AirSim changes can be found in the [changelog](https://github.com/Cosys-Lab/Cosys-AirSim/blob/main/CHANGELOG.md).
 
 ## How to Get It
-#### Download and run from packaged binary - Windows/Linux
-* [Download and run it](https://cosys-lab.github.io/run_packaged)
-#### Download and install from precompiled plugin - Windows/Linux
-* [Download and install it](https://cosys-lab.github.io/install_precompiled)
 #### Install and use from source - Windows
-* [Install/Build it](https://cosys-lab.github.io/install_windows)
+* [Install/Build it](https://bavolesy.github.io/idlab-asvsim-docs/installation/install_windows/)
 #### Install and use from source - Linux
-* [Install/Build it](https://cosys-lab.github.io/install_linux)
+* [Install/Build it](https://bavolesy.github.io/idlab-asvsim-docs/installation/install_linux/)
 #### Install and use from source - MacOS
-* [Install/Build it](docs/install_mac.md)
+* [Install/Build it](https://bavolesy.github.io/idlab-asvsim-docs/installation/install_mac/)
 
 ## How to Use It
 
 ### Documentation
 
-View our [detailed documentation](https://cosys-lab.github.io/) on all aspects of Cosys-AirSim.
+View our [work-in-progress documentation](https://bavolesy.github.io/idlab-asvsim-docs/) on all aspects of ASVSim.
 
 ## Original Cosys-AirSim Publications
 - [Cosys-AirSim: A Real-Time Simulation Framework Expanded for Complex Industrial Applications](https://arxiv.org/abs/2303.13381)

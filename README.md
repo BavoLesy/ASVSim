@@ -1,5 +1,7 @@
 # ASVSim - AirSim for Surface Vehicles
-![image](https://github.com/user-attachments/assets/9835edca-2f57-4dec-90bd-14bdaa56f2d5)
+<p align="center">
+    <img src="https://github.com/user-attachments/assets/9835edca-2f57-4dec-90bd-14bdaa56f2d5" alt="image" width="300"/>
+</p>
 
 [Documentation](https://bavolesy.github.io/idlab-asvsim-docs/)
 NOTE: We are currently working on this documentation. You may find some incomplete or outdated information. We will update it as soon as possible.
@@ -11,70 +13,45 @@ IDLab, (University of Antwerp - imec) created the ASVSim project to simulate aut
 
 
 This fork is based on last public AirSim release from Microsoft's GitHub.
-The [original AirSim MIT license](//add license) applies to all native AirSim source files. 
+The [original AirSim MIT license](//add license) applies to all native AirSim source files.
 Please note that we use that same [MIT license](//add license) as which applies to all changes made by IDLab in case you plan to do anything within this repository.
-Do note that this repository is provided as is, will not be actively updated and comes without warranty or support. 
+Do note that this repository is provided as is, will not be actively updated and comes without warranty or support.
 Please contact a IDLab/Cosys-Lab researcher to get more in depth information on which branch or version is best for your work.
 
 ## Associated publications
 
-- [Cosys-AirSim: A Real-Time Simulation Framework Expanded for Complex Industrial Applications](https://arxiv.org/abs/2303.13381)
+- [ASVSim(AirSim forSurface Vehicles):A High-Fidelity Simulation Frameworkfor Autonomous Surface VehicleResearch](https://arxiv.org/pdf/2506.22174)
 ```
-@inproceedings{cosysairsim2023jansen,
-  author={Jansen, Wouter and Verreycken, Erik and Schenck, Anthony and Blanquart, Jean-Edouard and Verhulst, Connor and Huebel, Nico and Steckel, Jan},
-  booktitle={2023 Annual Modeling and Simulation Conference (ANNSIM)}, 
-  title={COSYS-AIRSIM: A Real-Time Simulation Framework Expanded for Complex Industrial Applications}, 
-  year={2023},
-  volume={},
-  number={},
-  pages={37-48},
-  doi={}}
-```
-
-You can also find the presentation of the live tutorial of Cosys-AirSim at ANNSIM '23 conference [here](https://github.com/Cosys-Lab/Cosys-AirSim/tree/main/docs/annsim23_tutorial) together with the associated videos.
-
-- [Physical LiDAR Simulation in Real-Time Engine](https://arxiv.org/abs/2208.10295)
-```
-@inproceedings{lidarsim2022jansen,
-  author={Jansen, Wouter and Huebel, Nico and Steckel, Jan},
-  booktitle={2022 IEEE Sensors}, 
-  title={Physical LiDAR Simulation in Real-Time Engine}, 
-  year={2022},
-  volume={},
-  number={},
-  pages={1-4},
-  doi={10.1109/SENSORS52175.2022.9967197}}
-}
-```
-- [Simulation of Pulse-Echo Radar for Vehicle Control and SLAM](https://www.mdpi.com/1424-8220/21/2/523)
-```
-@Article{echosim2021schouten,
-  author={Schouten, Girmi and Jansen, Wouter and Steckel, Jan},
-  title={Simulation of Pulse-Echo Radar for Vehicle Control and SLAM},
-  JOURNAL={Sensors},
-  volume={21},
-  year={2021},
-  number={2},
-  article-number={523},
-  doi={10.3390/s21020523}
+@article{lesy2025asvsim,
+  title={ASVSim (AirSim for Surface Vehicles): A High-Fidelity Simulation Framework for Autonomous Surface Vehicle Research},
+  author={Lesy, Bavo and Herremans, Siemen and Kerstens, Robin and Steckel, Jan and Daems, Walter and Mercelis, Siegfried and Anwar, Ali},
+  journal={arXiv preprint arXiv:2506.22174},
+  year={2025}
 }
 ```
 
-## IDLab Modifications
-* Added support for vessels ([Note that vessel simulation is the main focus of this fork](link))
-* Added example environments and models for vessel simulation
-* Added documentation on how to use the simulator for vessel simulation
-* Added example code for training a vessel path planning algorithm using reinforcement learning in the simulator
-* Added an example of a tuned Dynamic Window Approach (DWA) path planning algorithm for vessels
-* Added support for joystick and keyboard control of vessels
+## ASVSim (IDLab + Cosys-Lab) Modifications
+* Added a physics engine for 3-DOF vessels (Fossen model). Note that vessel simulation is the main focus of this fork.
+* Added implementations of 3 research vessels and 1 commercial vessel.
+* Added distrubances to the vessel, both as external forces (such as wind) and by modeling the effect of currents as a relative velocity to the vessel.
+* Added support to place arbitrary, conntrollable thrusters on the vessel.
+* Added a maritime radar sensor, using a point-spread function (PSF) to simulate the radar's resolution and range.
+* Added example environments for vessel simulation, such as a canal and a port environment.
+* Extended Python and Matlab API for vessel control, combined with examble scripts.
+* Extended Python and Matlab API to set disturbances such as wind and current.
+* Added documentation on how to use the simulator for vessel simulation.
+* Added example code for training a vessel path planning algorithm using reinforcement learning in the simulator.
+* Added an example of a tuned Dynamic Window Approach (DWA) path planning algorithm for vessels.
+* Added support for joystick and keyboard control of vessels.
 * Added MacOS support.
+
 ## Cosys-Lab Modifications
 * Added support for Unreal up to 5.4 ([Note that Unreal 5.3/5.4 breaks camera scene rendering by default in custom environments](https://cosys-lab.github.io/unreal_custenv#unreal-5354-scene-camera-bug))
 * Added [multi-layer annotation](https://cosys-lab.github.io/annotation) for groundtruth label generation with RGB, greyscale and texture options. Extensive API integration and available for camera and GPU-LiDAR sensors.
-* Added [Instance Segmentation](https://cosys-lab.github.io/instance_segmentation). 
+* Added [Instance Segmentation](https://cosys-lab.github.io/instance_segmentation).
 * Added [Echo sensor type](https://cosys-lab.github.io/echo) for simulation of sensors like sonar and radar.
 * Added [GPU LIDAR sensor type](https://cosys-lab.github.io/gpulidar): Uses GPU acceleration to simulate a LiDAR sensor. Can support much higher point density then normal LiDAR and behaves more authentic and has realistic intensity generation.
-* Added [skid steering SimMode and vehicle type](https://cosys-lab.github.io/skid_steer_vehicle). ClearPath Husky and Pioneer P3DX implemented as vehicle types using this new vehicle model. 
+* Added [skid steering SimMode and vehicle type](https://cosys-lab.github.io/skid_steer_vehicle). ClearPath Husky and Pioneer P3DX implemented as vehicle types using this new vehicle model.
 * Added [Matlab API Client](https://cosys-lab.github.io/matlab) implementation as an easy to install Matlab toolbox.
 * Added various [random but deterministic dynamic object types and world configuration options](https://cosys-lab.github.io/dynamic_objects).
 * Added BoxCar vehicle model to the Car SimMode to have a smaller vehicle to use in indoor spaces.
@@ -82,7 +59,7 @@ You can also find the presentation of the live tutorial of Cosys-AirSim at ANNSI
 * Updated [LIDAR sensor type](https://cosys-lab.github.io/lidar): Fixed not tracing correctly, added ground truth (point labels) generation, added range-noise generation. Improved API pointcloud delivery to be full scan instead of being frame-rate dependent and partial.
 * Updated the camera, Echo and (GPU-)LiDAR sensors to be uncoupled from the vehicle and be placed as external world sensors.
 * Updated sensors like cameras, Echo sensor and GPU-LiDAR to ignore certain objects with the _MarkedIgnore_ Unreal tag and enabling the "IgnoreMarked" setting in [the settings file](https://cosys-lab.github.io/settings).
-* Updated cameras sensor with more distortion features such as chromatic aberration, motion blur and lens distortion. 
+* Updated cameras sensor with more distortion features such as chromatic aberration, motion blur and lens distortion.
 * Updated Python [ROS implementation](https://cosys-lab.github.io/ros) with completely new implementation and feature set.
 * Updated C++ [ROS2 implementation](https://cosys-lab.github.io/ros) to support custom Cosys-AirSim features.
 * Dropped support for Unity Environments.
@@ -106,6 +83,49 @@ Some more details on our changes can be found in the [changelog](https://github.
 ### Documentation
 
 View our [detailed documentation](https://cosys-lab.github.io/) on all aspects of Cosys-AirSim.
+
+## Original Cosys-AirSim Publications
+- [Cosys-AirSim: A Real-Time Simulation Framework Expanded for Complex Industrial Applications](https://arxiv.org/abs/2303.13381)
+```
+@inproceedings{cosysairsim2023jansen,
+  author={Jansen, Wouter and Verreycken, Erik and Schenck, Anthony and Blanquart, Jean-Edouard and Verhulst, Connor and Huebel, Nico and Steckel, Jan},
+  booktitle={2023 Annual Modeling and Simulation Conference (ANNSIM)},
+  title={COSYS-AIRSIM: A Real-Time Simulation Framework Expanded for Complex Industrial Applications},
+  year={2023},
+  volume={},
+  number={},
+  pages={37-48},
+  doi={}}
+```
+
+You can also find the presentation of the live tutorial of Cosys-AirSim at ANNSIM '23 conference [here](https://github.com/Cosys-Lab/Cosys-AirSim/tree/main/docs/annsim23_tutorial) together with the associated videos.
+
+- [Physical LiDAR Simulation in Real-Time Engine](https://arxiv.org/abs/2208.10295)
+```
+@inproceedings{lidarsim2022jansen,
+  author={Jansen, Wouter and Huebel, Nico and Steckel, Jan},
+  booktitle={2022 IEEE Sensors},
+  title={Physical LiDAR Simulation in Real-Time Engine},
+  year={2022},
+  volume={},
+  number={},
+  pages={1-4},
+  doi={10.1109/SENSORS52175.2022.9967197}}
+}
+```
+- [Simulation of Pulse-Echo Radar for Vehicle Control and SLAM](https://www.mdpi.com/1424-8220/21/2/523)
+```
+@Article{echosim2021schouten,
+  author={Schouten, Girmi and Jansen, Wouter and Steckel, Jan},
+  title={Simulation of Pulse-Echo Radar for Vehicle Control and SLAM},
+  JOURNAL={Sensors},
+  volume={21},
+  year={2021},
+  number={2},
+  article-number={523},
+  doi={10.3390/s21020523}
+}
+```
 
 ## Original AirSim Paper
 

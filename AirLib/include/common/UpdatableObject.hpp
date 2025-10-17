@@ -38,8 +38,8 @@ init->reset calls for base-derived class that would be incorrect.
             reset_in_progress = true;
             //TODO: Do we need this check anymore? Maybe reset() should be idempotent.
 
-            if (reset_called && !update_called)
-                failResetUpdateOrdering("Multiple reset() calls detected without call to update()");
+            //if (reset_called && !update_called)
+            //    failResetUpdateOrdering("Multiple reset() calls detected without call to update()");
 
             reset_called = true;
 

@@ -6,7 +6,7 @@
 #include "VesselApi.h"
 #include "AirBlueprintLib.h"
 #include "vehicles/vessel/VesselParamsFactory.hpp"
-#include "Vehicles/vessel/HydrodynamicsFactory.hpp"
+#include "Vehicles/Vessel/HydrodynamicsFactory.hpp"
 #include "UnrealSensors/UnrealSensorFactory.h"
 #include "VesselPawn.h"
 #include <exception>

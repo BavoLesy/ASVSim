@@ -1892,6 +1892,7 @@ bool ASimModeBase::activateGeneration(bool landscape)
         ALandscape* Landscape = GetWorld()->SpawnActor<ALandscape>(ALandscape::StaticClass(), Location, FRotator::ZeroRotator);
         Landscape->SetActorScale3D(FVector(100.0f,100.0f,100.0f));
 
+#if WITH_EDITOR
         Landscape->Import(
             FGuid::NewGuid(),
             MinX,
@@ -1906,6 +1907,7 @@ bool ASimModeBase::activateGeneration(bool landscape)
             ELandscapeImportAlphamapType::Additive,
             nullptr
         );
+#endif
 
         Landscape->RegisterAllComponents();
     }

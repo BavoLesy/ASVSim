@@ -12,7 +12,7 @@
 #include <Engine/StaticMesh.h>
 #include "ShowFlags.h"
 #include "UObject/ScriptMacros.h"
-#include "Runtime/Engine/Classes/GameFramework/Actor.h"
+#include "GameFramework/Actor.h"
 
 class FColorGenerator
 {

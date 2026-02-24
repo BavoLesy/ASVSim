@@ -10,6 +10,7 @@
 #include "api/VehicleApiBase.hpp"
 #include "api/VehicleSimApiBase.hpp"
 #include <vector>
+#include <span>
 #include "physics/PhysicsBody.hpp"
 #include "VesselParams.hpp"
 #include "Thruster.hpp"

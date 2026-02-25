@@ -90,17 +90,16 @@ private:
     UPhysicalMaterial* slippery_mat_;
     UPhysicalMaterial* non_slippery_mat_;
 
-    UPROPERTY(BlueprintReadOnly, Category = "Cameras")
+    UPROPERTY(BlueprintReadOnly, Category="SkidVehicle|Cameras", meta=(AllowPrivateAccess=true))
     USceneComponent* camera_front_center_base_;
-    UPROPERTY(BlueprintReadOnly, Category = "Cameras")
+    UPROPERTY(BlueprintReadOnly, Category="SkidVehicle|Cameras", meta=(AllowPrivateAccess=true))
     USceneComponent* camera_front_left_base_;
-    UPROPERTY(BlueprintReadOnly, Category = "Cameras")
+    UPROPERTY(BlueprintReadOnly, Category="SkidVehicle|Cameras", meta=(AllowPrivateAccess=true))
     USceneComponent* camera_front_right_base_;
-    UPROPERTY(BlueprintReadOnly, Category = "Cameras")
+    UPROPERTY(BlueprintReadOnly, Category="SkidVehicle|Cameras", meta=(AllowPrivateAccess=true))
     USceneComponent* camera_driver_base_;
-    UPROPERTY(BlueprintReadOnly, Category = "Cameras")
+    UPROPERTY(BlueprintReadOnly, Category="SkidVehicle|Cameras", meta=(AllowPrivateAccess=true))
     USceneComponent* camera_back_center_base_;
-
     UPROPERTY()
     APIPCamera* camera_front_center_;
     UPROPERTY()

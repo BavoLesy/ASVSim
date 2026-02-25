@@ -90,15 +90,15 @@ private:
     UPhysicalMaterial* slippery_mat_;
     UPhysicalMaterial* non_slippery_mat_;
 
-    UPROPERTY()
+    UPROPERTY(BlueprintReadOnly, Category = "Cameras")
     USceneComponent* camera_front_center_base_;
-    UPROPERTY()
+    UPROPERTY(BlueprintReadOnly, Category = "Cameras")
     USceneComponent* camera_front_left_base_;
-    UPROPERTY()
+    UPROPERTY(BlueprintReadOnly, Category = "Cameras")
     USceneComponent* camera_front_right_base_;
-    UPROPERTY()
+    UPROPERTY(BlueprintReadOnly, Category = "Cameras")
     USceneComponent* camera_driver_base_;
-    UPROPERTY()
+    UPROPERTY(BlueprintReadOnly, Category = "Cameras")
     USceneComponent* camera_back_center_base_;
 
     UPROPERTY()

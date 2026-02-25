@@ -45,10 +45,6 @@ __pragma(warning(disable : 4239))
 namespace msr {
     namespace airlib {
 
-        VesselRpcLibServer::VesselRpcLibServer(ApiProvider* api_provider, string server_address, uint16_t port): RpcLibServerBase(api_provider, server_address, port){
-            ;
-        }
-    
         typedef msr::airlib_rpclib::VesselRpcLibAdaptors VesselRpcLibAdaptors;
 
         VesselRpcLibClient::VesselRpcLibClient(const string& ip_address, uint16_t port, float timeout_sec)

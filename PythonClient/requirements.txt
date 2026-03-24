@@ -3,6 +3,7 @@ tornado
 numpy
 gymnasium
 stable-baselines3
+sb3-contrib
 wandb
 cosysairsim
 pillow

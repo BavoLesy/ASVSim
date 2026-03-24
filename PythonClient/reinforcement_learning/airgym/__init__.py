@@ -9,5 +9,5 @@ register(
 )
 
 register(
-    id="airsim-vessel-sample-v0", entry_point="airgym.envs:AirSimVesselEnv",
+    id="airsim-vessel-sample-v0", entry_point="airgym.envs:PCGVesselEnv",
 )

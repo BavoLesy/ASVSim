@@ -1889,10 +1889,10 @@ bool ASimModeBase::activateGeneration(bool landscape)
 
         TArray<FLandscapeImportLayerInfo> MaterialImportLayers;
 
+#if WITH_EDITOR
         ALandscape* Landscape = GetWorld()->SpawnActor<ALandscape>(ALandscape::StaticClass(), Location, FRotator::ZeroRotator);
         Landscape->SetActorScale3D(FVector(100.0f,100.0f,100.0f));
 
-#if WITH_EDITOR
         Landscape->Import(
             FGuid::NewGuid(),
             MinX,
@@ -1907,40 +1907,70 @@ bool ASimModeBase::activateGeneration(bool landscape)
             ELandscapeImportAlphamapType::Additive,
             nullptr
         );
-#endif
 
         Landscape->RegisterAllComponents();
+#endif
     }
 	//spawn generation manager
     std::string path = "Class'/AirSim/PCG/generationManager.generationManager_C'";
 
-    auto BP_generation = UAirBlueprintLib::LoadClass(path);
-    ;
+    UClass* BP_generation = nullptr;
+    try
+    {
+        BP_generation = UAirBlueprintLib::LoadClass(path);
+    }
+    catch (const std::exception& e)
+    {
+        UE_LOG(LogTemp, Error, TEXT("activateGeneration: LoadClass threw — %s. Ensure the AirSim/PCG content is cooked."), *FString(e.what()));
+        return false;
+    }
+
     FTransform SpawnTransform(FQuat(Rotation), FVector::ZeroVector);
 
     AActor* spawned_npc = GetWorld()->SpawnActor<AActor>(BP_generation, SpawnTransform);
+    if (!spawned_npc)
+    {
+        UE_LOG(LogTemp, Error, TEXT("activateGeneration: SpawnActor for generationManager failed."));
+        return false;
+    }
+
+    // Tag the actor so it can be found by tag rather than auto-generated name
+    spawned_npc->Tags.Add(FName("GenerationManager"));
+    UE_LOG(LogTemp, Warning, TEXT("activateGeneration: spawned GenerationManager as '%s'"), *spawned_npc->GetName());
 
     return true;
 }
 
 bool ASimModeBase::generatePortTerrain(const std::string& type, int seed, int length, float mina, float maxa, float mind, float maxd)
 {
-	//get generation manager actor
+	//get generation manager actor — find by tag first (runtime-spawned), fall back to name (editor-placed)
     AActor* GenerationManager = nullptr;
-    FString TargetName = TEXT("generationManager_C_0");
 
     for (TActorIterator<AActor> It(GetWorld()); It; ++It)
     {
-        if (It->GetName() == TargetName)
+        if (It->ActorHasTag(FName("GenerationManager")))
         {
             GenerationManager = *It;
             break;
         }
     }
+    if (!GenerationManager)
+    {
+        // Fallback: legacy name used by editor-placed instances
+        FString TargetName = TEXT("generationManager_C_0");
+        for (TActorIterator<AActor> It(GetWorld()); It; ++It)
+        {
+            if (It->GetName() == TargetName)
+            {
+                GenerationManager = *It;
+                break;
+            }
+        }
+    }
     //change current seed
     if (!GenerationManager)
     {
-        UE_LOG(LogTemp, Warning, TEXT("GenerationManager actor is null!"));
+        UE_LOG(LogTemp, Warning, TEXT("GenerationManager actor is null! Call activateGeneration first."));
         return false;
     }
 	UFunction* Function = GenerationManager->FindFunction(FName("SetSeed"));
@@ -1998,14 +2028,26 @@ std::vector<FVector2D> ASimModeBase::getGoal(int distance, FVector2D initial_loc
 	FVector2D port_right = FVector2D(0, 0);
 	
     AActor* GenerationManager = nullptr;
-    FString TargetName = TEXT("generationManager_C_0");
 
     for (TActorIterator<AActor> It(GetWorld()); It; ++It)
     {
-        if (It->GetName() == TargetName)
+        if (It->ActorHasTag(FName("GenerationManager")))
         {
             GenerationManager = *It;
             break;
+        }
+    }
+    if (!GenerationManager)
+    {
+        // Fallback: legacy name used by editor-placed instances
+        FString TargetName = TEXT("generationManager_C_0");
+        for (TActorIterator<AActor> It(GetWorld()); It; ++It)
+        {
+            if (It->GetName() == TargetName)
+            {
+                GenerationManager = *It;
+                break;
+            }
         }
     }
     if (!GenerationManager)

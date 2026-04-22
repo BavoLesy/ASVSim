@@ -72,6 +72,25 @@ namespace msr {
 				}
             };
 
+			struct WaterwayDepthControls {
+				float waterway_depth;
+
+				MSGPACK_DEFINE_MAP(waterway_depth);
+
+                WaterwayDepthControls()
+				{
+				}
+
+                WaterwayDepthControls(const msr::airlib::VesselApiBase::WaterwayDepthControls& s)
+				{
+					waterway_depth = s.waterway_depth;
+				}
+				msr::airlib::VesselApiBase::WaterwayDepthControls to() const
+				{
+					return msr::airlib::VesselApiBase::WaterwayDepthControls(waterway_depth);
+				}
+			};
+
             struct VesselState {
                 float speed;
                 KinematicsState kinematics_estimated;

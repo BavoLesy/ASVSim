@@ -66,6 +66,12 @@ namespace msr {
 			static_cast<rpc::client*>(getClient())->
 				call("setDisturbanceControls", VesselRpcLibAdaptors::DisturbanceControls(controls), vehicle_name);
 		}
+
+        void VesselRpcLibClient::setWaterwayDepthControls(const VesselApiBase::WaterwayDepthControls& controls, const std::string& vehicle_name)
+        {
+            static_cast<rpc::client*>(getClient())->
+                call("setWaterwayDepthControls", VesselRpcLibAdaptors::WaterwayDepthControls(controls), vehicle_name);
+        }
         
         VesselApiBase::VesselState VesselRpcLibClient::getVesselState(const std::string& vehicle_name)
         {

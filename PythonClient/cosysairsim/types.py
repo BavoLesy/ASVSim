@@ -764,3 +764,18 @@ class DisturbanceControls(MsgpackMixin):
     def set_current(self, current_velocity_val, current_angle_val):
         self.current_force = current_velocity_val
         self.current_angle = current_angle_val
+
+class WaterwayDepthControls(MsgpackMixin):
+    waterway_depth = 0.0
+    
+    def __init__ (self, waterway_depth_val = 0.0):
+        if waterway_depth_val < 0.0:
+            raise ValueError("The depth of the waterway cannot be negative.")
+        
+        self.waterway_depth = waterway_depth_val
+    
+    def set_waterway_depth(self, waterway_depth_val: float):
+        if waterway_depth_val < 0.0:
+            raise ValueError("The depth of the waterway cannot be negative.")
+        
+        self.waterway_depth = waterway_depth_val

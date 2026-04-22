@@ -29,8 +29,10 @@ void VesselPawnSimApi::initialize()
     // vehicle_params_ = std::make_unique<MilliAmpereParams>();// MultiRotorParamsFactory::createConfig(getVehicleSetting(), sensor_factory);
     vehicle_params_ = VesselParamsFactory::createConfig(getVehicleSetting());
     vehicle_api_ = std::make_unique<VesselApi>(static_cast<AVesselPawn*>(params_->pawn), getVehicleSetting(), sensor_factory, *getGroundTruthKinematics(), *getGroundTruthEnvironment());
+    shallow_water_ = std::make_unique<ClarkeShallowWater>(vehicle_params_.get());
     hydrodynamics_ = HydrodynamicsFactory::createHydrodynamics(getVehicleSetting());
     hydrodynamics_->setVesselParameters(vehicle_params_.get());
+    hydrodynamics_->setShallowCorrection(shallow_water_.get());
     //setup physics vehicle
     phys_vehicle_ = std::make_unique<Vessel>(vehicle_params_.get(), hydrodynamics_.get(), vehicle_api_.get(),
                                 getKinematics(), getEnvironment());

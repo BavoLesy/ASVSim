@@ -43,6 +43,19 @@ namespace msr {
                 if (std::abs(delta) > delta_max)
                     delta = std::copysign(delta_max, delta);
 
+                ShallowWaterCorrections sw_corr = shallowWater_->computeCorrection(water_depth_);
+
+                real_T Y_v_sh = params.Y_v * sw_corr.Yv;
+                real_T Y_r_sh = params.Y_r * sw_corr.Yr;
+                real_T N_v_sh = params.N_v * sw_corr.Nv;
+                real_T N_r_sh = params.N_r * sw_corr.Nr;
+                real_T Y_vvv_sh = params.Y_vvv * sw_corr.Yv;
+                real_T Y_v_v_r_sh = params.Y_v_v_r * sw_corr.Yr;
+                real_T N_vvv_sh = params.N_vvv * sw_corr.Nv;
+                real_T N_v_v_r_sh = params.N_v_v_r * sw_corr.Nr;
+
+                Utils::log(std::to_string(sw_corr.Yv));
+
                 // Surge
                 real_T X = params.X_u * u_nd
                     + params.X_u_u * u_nd * u_nd
@@ -56,10 +69,10 @@ namespace msr {
                     + params.X_uvd * u_nd * v_nd * delta;
 
                 // Sway  
-                real_T Y = params.Y_v * v_nd
-                    + params.Y_r * r_nd
-                    + params.Y_vvv * v_nd * v_nd * v_nd
-                    + params.Y_v_v_r * v_nd * v_nd * r_nd
+                real_T Y = Y_v_sh * v_nd
+                    + Y_r_sh * r_nd
+                    + Y_vvv_sh * v_nd * v_nd * v_nd
+                    + Y_v_v_r_sh * v_nd * v_nd * r_nd
                     + params.Y_vu * v_nd * u_nd
                     + params.Y_ru * r_nd * u_nd
                     + params.Y_d * delta
@@ -71,10 +84,10 @@ namespace msr {
                     + (params.Y_0 + params.Y_0_u * u_nd + params.Y_0_u_u * u_nd * u_nd);
 
                 // Yaw
-                real_T N = params.N_v * v_nd
-                    + params.N_r * r_nd
-                    + params.N_vvv * v_nd * v_nd * v_nd
-                    + params.N_v_v_r * v_nd * v_nd * r_nd
+                real_T N = N_v_sh * v_nd
+                    + N_r_sh * r_nd
+                    + N_vvv_sh * v_nd * v_nd * v_nd
+                    + N_v_v_r_sh * v_nd * v_nd * r_nd
                     + params.N_vu * v_nd * u_nd
                     + params.N_ru * r_nd * u_nd
                     + params.N_d * delta
@@ -85,12 +98,21 @@ namespace msr {
                     + params.N_v_v_d * v_nd * v_nd * delta
                     + (params.N_0 + params.N_0_u * u_nd + params.N_0_u_u * u_nd * u_nd);
 
-                const Matrix3x3r& mass_matrix = params.mass_matrix;
-                real_T m11 = mass_matrix(0, 0);
-                real_T m22 = mass_matrix(1, 1);
-                real_T m23 = mass_matrix(1, 2);
-                real_T m32 = mass_matrix(2, 1);
-                real_T m33 = mass_matrix(2, 2);
+                const Matrix3x3r& orig_mass_matrix = params.mass_matrix;
+                const real_T m_nd = params.mass;
+                const real_T xG_nd = params.xg_dimensionless;
+                const real_T Iz_nd = params.inertia(2, 2);
+
+                real_T Yvdot_deep = m_nd - orig_mass_matrix(1, 1);
+                real_T Yrdot_deep = (m_nd * xG_nd) - orig_mass_matrix(1, 2);
+                real_T Nvdot_deep = (m_nd * xG_nd) - orig_mass_matrix(2, 1);
+                real_T Nrdot_deep = Iz_nd - orig_mass_matrix(2, 2);
+
+				real_T m11 = orig_mass_matrix(0, 0); // Surge unaltered by shallow water effects
+                real_T m22 = m_nd - (Yvdot_deep * sw_corr.Yv_dot);
+                real_T m23 = (m_nd * xG_nd) - (Yrdot_deep * sw_corr.Yv_dot);
+                real_T m32 = (m_nd * xG_nd) - (Nvdot_deep * sw_corr.Yv_dot);
+                real_T m33 = Iz_nd - (Nrdot_deep * sw_corr.Nr_dot);
 
                 real_T detM22 = m22 * m33 - m23 * m32;
 

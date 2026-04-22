@@ -52,6 +52,11 @@ namespace msr {
                 getVehicleApi(vehicle_name)->setVesselControls(controls.to());
                     });
 
+            (static_cast<rpc::server*>(getServer()))->
+                bind("setWaterwayDepthControls", [&](const std::string& vehicle_name, const VesselRpcLibAdaptors::WaterwayDepthControls& controls) -> void {
+                getVehicleApi(vehicle_name)->setWaterwayDepthControls(controls.to());
+                    });
+
 			(static_cast<rpc::server*>(getServer()))->
 				bind("setDisturbanceControls", [&](const std::string& vehicle_name, const VesselRpcLibAdaptors::DisturbanceControls& controls) -> void {
 				getVehicleApi(vehicle_name)->setDisturbanceControls(controls.to());

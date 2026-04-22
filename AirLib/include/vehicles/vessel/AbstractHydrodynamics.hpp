@@ -9,6 +9,7 @@
 #include "common/CommonStructs.hpp"
 #include "physics/Kinematics.hpp"
 #include "VesselParams.hpp"
+#include "hydrodynamics/ShallowWater.hpp"
 #include "common/SteppableClock.hpp"
 #include "common/UpdatableObject.hpp"
 
@@ -33,6 +34,9 @@ namespace msr { namespace airlib {
 		void setVesselParameters(VesselParams* params) {
 			this->parameters_ = params;
 		}
+		void setShallowCorrection(ClarkeShallowWater* shallowWater) {
+			this->shallowWater_ = shallowWater;
+		}
 
 		const VesselParams* getVesselParameters() const {
 			return this->parameters_;
@@ -48,6 +52,10 @@ namespace msr { namespace airlib {
 
 		void setRudderAngle(float angle) {
 			rudder_angle_ = angle;
+		}
+
+		void setWaterDepth(float depth) {
+			water_depth_ = depth;
 		}
 
 		void updateState(const Kinematics::State& state, const Vector2r& current) {
@@ -68,10 +76,12 @@ namespace msr { namespace airlib {
 
 	protected:
 		VesselParams* parameters_;
+		ClarkeShallowWater* shallowWater_;
 		Vector3r dampingForce_, coriolisForce_;
 		Vector3r nu_, current_, nu_dot_, eta_dot_;
 		float heading_ = 0.0f;		// In radians
 		float rudder_angle_ = 0.0f; // In radians
+		float water_depth_ = 0.0f;  // In [m], only for large vessels
 
 	};
 

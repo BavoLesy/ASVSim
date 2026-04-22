@@ -80,6 +80,7 @@ namespace msr {
                 if (params_->getParams().large_vessel) {
                     hydrodynamics_->updateState(kinematics, Vector2r::Zero());
                     hydrodynamics_->setRudderAngle(vessel_api_->getActuation(1) - 0.5);
+                    hydrodynamics_->setWaterDepth(vessel_api_->getWaterwayDepth());
                     hydrodynamics_->computeDamping();
                     hydrodynamics_->computeCoriolis();
                     Kinematics::State kin_copy = getKinematics();

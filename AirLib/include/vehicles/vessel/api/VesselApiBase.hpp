@@ -36,6 +36,22 @@ namespace msr {
 
 			constexpr static unsigned int MAX_THRUSTER_COUNT = 10;
 
+            struct WaterwayDepthControls {
+                float waterway_depth;
+
+                WaterwayDepthControls()
+                {
+                    waterway_depth = 0.0;
+                }
+				WaterwayDepthControls(float depth_val) : waterway_depth(depth_val)
+                {
+                }
+                void set_depth(float depth_val)
+                {
+					waterway_depth = depth_val;
+                }
+            };
+
             struct VesselControls {
 				std::array<float, MAX_THRUSTER_COUNT> thruster_forces;
 				std::array<float, MAX_THRUSTER_COUNT> thruster_angles;
@@ -123,6 +139,11 @@ namespace msr {
                 const Kinematics::State& state, const Environment& environment)
             {
                 initialize(vehicle_setting, sensor_factory, state, environment);
+            }
+
+            virtual real_T getWaterwayDepth() const {
+
+                return last_waterway_depth_.waterway_depth;
             }
 
             virtual real_T getActuation(unsigned int actuation_index) const override
@@ -250,6 +271,10 @@ namespace msr {
 			virtual void setDisturbanceControls(const DisturbanceControls& controls) {
 				last_disturbances_ = controls;
 			}
+
+            virtual void setWaterwayDepthControls(const WaterwayDepthControls& controls) {
+                last_waterway_depth_ = controls;
+            }
             // virtual VesselState getVesselState() const;
             virtual const VesselApiBase::VesselControls& getVesselControls() const {
                 return last_controls_;
@@ -259,7 +284,7 @@ namespace msr {
 				return last_disturbances_;
 			}
 
-            virtual VesselState getVesselState() const
+            virtual VesselApiBase::VesselState getVesselState() const
             {
                 VesselState state;
                 state.kinematics_estimated = Kinematics::State();
@@ -274,6 +299,7 @@ namespace msr {
             vector<shared_ptr<SensorBase>> sensor_storage_; //RAII for created sensors
             VesselControls last_controls_;
 			DisturbanceControls last_disturbances_;
+			WaterwayDepthControls last_waterway_depth_;
         
         private:
             CancelToken token_;

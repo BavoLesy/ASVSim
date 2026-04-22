@@ -27,7 +27,9 @@ namespace msr {
                 real_T center_x = 0.0;        // Center of gravity w.r.t x axys. 
                 real_T length = 0.0;
                 Matrix3x3r inertia = Matrix3x3r::Zero();
-
+                real_T beam = 0.0;
+                real_T draft = 0.0; 
+                
                 // X-coefficients
                 real_T X_u = 0.0;     // X_u
                 real_T X_u_u = 0.0;   // X_uu

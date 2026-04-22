@@ -62,6 +62,7 @@ private:
     std::unique_ptr<msr::airlib::VesselApiBase> vehicle_api_;
     std::unique_ptr<msr::airlib::VesselParams> vehicle_params_;
     std::unique_ptr<msr::airlib::AbstractHydrodynamics> hydrodynamics_;
+    std::unique_ptr<msr::airlib::ClarkeShallowWater> shallow_water_;
 
     std::unique_ptr<Vessel> phys_vehicle_;
     unsigned int rotor_count_;

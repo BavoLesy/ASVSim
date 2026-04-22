@@ -29,6 +29,8 @@ namespace msr {
                 real_T z_inertia = 39.2e-5; // [kg*m^2] (non-dimensionalized)
                 fillInertiaMatrix(params.inertia, z_inertia);
                 fillMassMatrix(params.mass_matrix, params.inverse_mass_matrix, params.mass, z_inertia);
+                params.beam = 23.2; // m
+                params.draft = 7.46; // m
 
                 // Hydrodynamic derivatives (non-dimensionalized)
                 params.X_u = -184e-5;

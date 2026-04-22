@@ -4,11 +4,22 @@
 </p>
 
 [Documentation](https://bavolesy.github.io/idlab-asvsim-docs/)
-NOTE: We are currently working on this documentation. You may find some incomplete or outdated information. We will update it as soon as possible.
 
 IDLab-ASVSim (AirSim for Surface Vehicles) is a fork of the Cosys-AirSim project, which is a simulator for drones, cars and more, with extensive API support, built on [Unreal Engine](https://www.unrealengine.com/). IDLab-VesSim extends upon Cosys-AirSim by adding simulation of vessels. It is open-source, cross platform, and supports hardware-in-loop with popular flight controllers such as PX4 for physically and visually realistic simulations. It is developed as an Unreal plugin that can simply be dropped into any Unreal environment.
 
-IDLab, (University of Antwerp - imec) created the ASVSim project to simulate autonomous vessels in a realistic environment with the goal of developing and testing autonomous vessel path planning algorithms. The simulator uses Unreal Engine (5.4.X) to create a realistic environment and simulate the vessel's movement. The simulator is designed to be modular and extensible, allowing for easy integration of new features and sensors. Please contact the IDLab researchers to get more in depth information on our work or if you wish to collaborate. As IDLab focuses on autonomous vessels, the focus of this fork is on simulating vessels and their sensors. If you are interested in simulating drones, cars or other vehicles and their sensors, please refer to the [Cosys-AirSim project](https://github.com/Cosys-Lab/Cosys-AirSim).
+IDLab, (University of Antwerp - imec) created the ASVSim project to simulate autonomous vessels in a realistic environment with the goal of developing and testing autonomous vessel path planning algorithms. The simulator uses Unreal Engine (5.5.4) to create a realistic environment and simulate the vessel's movement. The simulator is designed to be modular and extensible, allowing for easy integration of new features and sensors. Please contact the IDLab researchers to get more in depth information on our work or if you wish to collaborate. As IDLab focuses on autonomous vessels, the focus of this fork is on simulating vessels and their sensors. If you are interested in simulating drones, cars or other vehicles and their sensors, please refer to the [Cosys-AirSim project](https://github.com/Cosys-Lab/Cosys-AirSim).
+
+<p align="center">
+    <img src="docs/images/port_env.png" alt="First-person view from a vessel in a port environment" width="480"/>
+</p>
+
+<p align="center">
+    <img src="docs/images/sim_envs.png" alt="A selection of ASVSim environments: inland waterway, coastal, and industrial port" width="360"/>
+</p>
+
+<p align="center">
+    <img src="docs/images/cv_example.png" alt="Per-frame computer-vision outputs: object detection, depth, and segmentation" width="720"/>
+</p>
 
 
 
@@ -33,6 +44,7 @@ Please contact a IDLab/Cosys-Lab researcher to get more in depth information on 
 ## ASVSim (IDLab + Cosys-Lab) Modifications
 * Added a physics engine for 3-DOF vessels (Fossen model). Note that vessel simulation is the main focus of this fork.
 * Added implementations of 3 research vessels and 1 commercial vessel.
+* Added shallow-water hydrodynamic effects (Clarke correction): sway/yaw coefficients and added-mass terms scale with waterway depth relative to vessel draft, configurable per-frame via the API.
 * Added distrubances to the vessel, both as external forces (such as wind) and by modeling the effect of currents as a relative velocity to the vessel.
 * Added support to place arbitrary, conntrollable thrusters on the vessel.
 * Added a maritime radar sensor, using a point-spread function (PSF) to simulate the radar's resolution and range.
@@ -40,10 +52,12 @@ Please contact a IDLab/Cosys-Lab researcher to get more in depth information on 
 * Extended Python and Matlab API for vessel control, combined with examble scripts.
 * Extended Python and Matlab API to set disturbances such as wind and current.
 * Added documentation on how to use the simulator for vessel simulation.
-* Added example code for training a vessel path planning algorithm using reinforcement learning in the simulator.
+* Added an extensive reinforcement-learning example with procedural content generation (PCG): randomized terrain, dynamic obstacles, and waypoint navigation, ready to train with Stable-Baselines3 / sb3-contrib.
 * Added an example of a tuned Dynamic Window Approach (DWA) path planning algorithm for vessels.
 * Added support for joystick and keyboard control of vessels.
-* Added MacOS support.
+* Upgraded to Unreal Engine 5.5.4, including the packaging fixes required for cooked builds.
+* Added native Apple Silicon macOS support.
+* Added working Docker images for Linux builds.
 
 ## Cosys-AirSim Modifications
 * Added support for Unreal up to 5.4 ([Note that Unreal 5.3/5.4 breaks camera scene rendering by default in custom environments](https://cosys-lab.github.io/unreal_custenv#unreal-5354-scene-camera-bug))

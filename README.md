@@ -20,14 +20,15 @@ Please contact a IDLab/Cosys-Lab researcher to get more in depth information on 
 
 ## Associated publications
 
-- [ASVSim(AirSim forSurface Vehicles):A High-Fidelity Simulation Frameworkfor Autonomous Surface VehicleResearch](https://arxiv.org/pdf/2506.22174)
+- [ASVSim(AirSim for Surface Vehicles):A High-Fidelity Simulation Framework for Autonomous Surface Vehicle Research](https://ieeexplore.ieee.org/abstract/document/11493908)
 ```
-@article{lesy2025asvsim,
-  title={ASVSim (AirSim for Surface Vehicles): A High-Fidelity Simulation Framework for Autonomous Surface Vehicle Research},
+@ARTICLE{lesy2026asvsim,
   author={Lesy, Bavo and Herremans, Siemen and Kerstens, Robin and Steckel, Jan and Daems, Walter and Mercelis, Siegfried and Anwar, Ali},
-  journal={arXiv preprint arXiv:2506.22174},
-  year={2025}
-}
+  journal={IEEE Access}, 
+  title={ASVSim (AirSim for Surface Vehicles): A High-Fidelity Simulation Framework for Autonomous Surface Vehicle Research}, 
+  year={2026},
+  doi={10.1109/ACCESS.2026.3687084}}
+
 ```
 
 ## ASVSim (IDLab + Cosys-Lab) Modifications

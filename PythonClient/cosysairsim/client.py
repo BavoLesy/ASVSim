@@ -2372,6 +2372,13 @@ class VesselClient(VehicleClient, object):
         if not controls:
             controls = DisturbanceControls(0, 0)
         self.client.call("setDisturbanceControls", vehicle_name, controls)
+
+    def setWaterwayDepthControls(
+        self, vehicle_name="", controls: Optional[WaterwayDepthControls] = None
+    ) -> None:
+        if not controls:
+            controls = WaterwayDepthControls(0.0)
+        self.client.call("setWaterwayDepthControls", vehicle_name, controls)
     
     def getVesselState(self, vehicle_name=""):
         state_raw = self.client.call("getVesselState", vehicle_name)

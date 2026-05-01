@@ -45,10 +45,6 @@ __pragma(warning(disable : 4239))
 namespace msr {
     namespace airlib {
 
-        VesselRpcLibServer::VesselRpcLibServer(ApiProvider* api_provider, string server_address, uint16_t port): RpcLibServerBase(api_provider, server_address, port){
-            ;
-        }
-    
         typedef msr::airlib_rpclib::VesselRpcLibAdaptors VesselRpcLibAdaptors;
 
         VesselRpcLibClient::VesselRpcLibClient(const string& ip_address, uint16_t port, float timeout_sec)
@@ -70,6 +66,12 @@ namespace msr {
 			static_cast<rpc::client*>(getClient())->
 				call("setDisturbanceControls", VesselRpcLibAdaptors::DisturbanceControls(controls), vehicle_name);
 		}
+
+        void VesselRpcLibClient::setWaterwayDepthControls(const VesselApiBase::WaterwayDepthControls& controls, const std::string& vehicle_name)
+        {
+            static_cast<rpc::client*>(getClient())->
+                call("setWaterwayDepthControls", VesselRpcLibAdaptors::WaterwayDepthControls(controls), vehicle_name);
+        }
         
         VesselApiBase::VesselState VesselRpcLibClient::getVesselState(const std::string& vehicle_name)
         {

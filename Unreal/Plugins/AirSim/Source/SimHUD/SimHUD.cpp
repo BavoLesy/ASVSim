@@ -7,7 +7,7 @@
 #include "Vehicles/Car/SimModeCar.h"
 #include "Vehicles/SkidSteer/SimModeSkidVehicle.h"
 #include "Vehicles/ComputerVision/SimModeComputerVision.h"
-#include "Vehicles/vessel/SimModeVessel.h"
+#include "Vehicles/Vessel/SimModeVessel.h"
 
 #include "common/AirSimSettings.hpp"
 #include <stdexcept>

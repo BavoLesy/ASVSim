@@ -11,7 +11,8 @@ classdef AirSimClient < handle
         car_controls;
         drone_client;
         vessel_controls;
-        vessel_disturbance_controls
+        vessel_disturbance_controls;
+        waterway_depth_controls
     end
     
     properties (Constant)
@@ -108,6 +109,7 @@ classdef AirSimClient < handle
             %   Instance of the AirSimClient class.
 
             argParser = inputParser();
+            py.importlib.import_module('cosysairsim');
             argParser.addOptional("IsDrone", false, @islogical);
             argParser.addOptional("IP", "127.0.0.1", @isstring);
             argParser.addOptional("Port", 41451, @isnumeric);
@@ -867,17 +869,41 @@ classdef AirSimClient < handle
             % SETVESSELCONTROLS Set the controls of the vehicle.
             %
             % Description:
-            %   Sets the controls (rudder thrust and angle) of the vessel.
+            %   Sets the controls (thrust and angle) for up to 10 thrusters of the vessel.
+            %   If a single scalar value is provided, it is applied to all thrusters.
+            %   If an array is provided, it applies the values to the respective thrusters,
+            %   padding the remainder with zeros up to the maximum thruster count.
             %
             % Inputs:
-            %   throttle - Thrust value (normalized Newtons).
-            %   angle    - Rudder angle value (normalized radians).
+            %   thrust      - Thrust value(s) (scalar or array).
+            %   angle       - Rudder angle value(s) (scalar or array).
             %   vehicleName - name of the vessel.      
-
+        
+            MAX_THRUSTER_COUNT = 10;
             
-            obj.vessel_controls.rudder_thrust = thrust;
-            obj.vessel_controls.rudder_angle = angle;
+            % Process thrust: duplicate if scalar, or pad/truncate if array
+            if isscalar(thrust)
+                thrust_array = repmat(thrust, 1, MAX_THRUSTER_COUNT);
+            else
+                thrust_array = zeros(1, MAX_THRUSTER_COUNT);
+                n_elements = min(length(thrust), MAX_THRUSTER_COUNT);
+                thrust_array(1:n_elements) = thrust(1:n_elements);
+            end
             
+            % Process angle: duplicate if scalar, or pad/truncate if array
+            if isscalar(angle)
+                angle_array = repmat(angle, 1, MAX_THRUSTER_COUNT);
+            else
+                angle_array = zeros(1, MAX_THRUSTER_COUNT);
+                n_elements = min(length(angle), MAX_THRUSTER_COUNT);
+                angle_array(1:n_elements) = angle(1:n_elements);
+            end
+        
+            % Convert MATLAB double arrays explicitly to Python lists
+            obj.vessel_controls.thruster_forces = py.list(thrust_array);
+            obj.vessel_controls.thruster_angles = py.list(angle_array);
+            
+            % Send RPC call
             obj.rpc_client.call("setVesselControls", vehicleName, obj.vessel_controls);
         end
 
@@ -1558,7 +1584,7 @@ classdef AirSimClient < handle
         end
         
         
-        function setDisturbanceControls(obj, wind_force, wind_angle, wave_force, wave_angle, ...
+        function setDisturbanceControls(obj, wind_force, wind_angle, ...
                 current_speed, current_angle, vehicle_name)
             % SETDISTURBANCECONTROLS Set the disturbance parameters in the simulation
             %
@@ -1575,12 +1601,26 @@ classdef AirSimClient < handle
         
             obj.vessel_disturbance_controls.wind_force = wind_force;
             obj.vessel_disturbance_controls.wind_angle = wind_angle;
-            obj.vessel_disturbance_controls.wave_force = wave_force;
-            obj.vessel_disturbance_controls.wave_angle = wave_angle;
+            % obj.vessel_disturbance_controls.wave_force = wave_force;
+            % obj.vessel_disturbance_controls.wave_angle = wave_angle;
             obj.vessel_disturbance_controls.current_force = current_speed;
             obj.vessel_disturbance_controls.current_angle = current_angle;
         
             obj.rpc_client.call('setDisturbanceControls', vehicle_name, obj.vessel_disturbance_controls);
+        end
+
+        function setWaterwayDepthControls(obj, depth_value, vehicle_name)
+            % SETDISTURBANCECONTROLS Set the disturbance parameters in the simulation
+            %
+            % Description:
+            %   Sets the depth of the waterway in the simulation.
+            %
+            % Inputs:
+            %   depth_value - The depth of the waterway
+
+            obj.waterway_depth_controls.waterway_depth = depth_value;
+        
+            obj.rpc_client.call('setWaterwayDepthControls', vehicle_name, obj.waterway_depth_controls);
         end
 
         

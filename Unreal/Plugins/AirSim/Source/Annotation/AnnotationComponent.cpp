@@ -6,8 +6,8 @@
 // Overwrite the material
 
 #include "Runtime/CoreUObject/Public/UObject/ConstructorHelpers.h"
-#include "Runtime/Engine/Classes/Materials/Material.h"
-#include "Runtime/Engine/Classes/Materials/MaterialInstanceDynamic.h"
+#include "Runtime/Engine/Public/Materials/Material.h"
+#include "Runtime/Engine/Public/Materials/MaterialInstanceDynamic.h"
 #include "Runtime/Engine/Classes/Engine/StaticMesh.h"
 #include "Runtime/Engine/Classes/Components/SkeletalMeshComponent.h"
 #include "Runtime/Launch/Resources/Version.h"
@@ -22,6 +22,7 @@
 
 #endif
 #include "Runtime/Engine/Public/Rendering/SkeletalMeshRenderData.h"
+#include "Rendering/SkeletalMeshRenderData.h"
 
 /** A proxy class to get mesh data from StaticMesh, should be used together with AnnotationCamSensor.
 Inheritance is needed because I need to access protected data
@@ -443,6 +444,9 @@ FBoxSphereBounds UAnnotationComponent::CalcBounds(const FTransform & LocalToWorl
 	}
 
 	FBoxSphereBounds DefaultBounds;
+	DefaultBounds.Origin = LocalToWorld.GetLocation();
+	DefaultBounds.BoxExtent = FVector::ZeroVector;
+	DefaultBounds.SphereRadius = 0.f;
 	return DefaultBounds;
 }
 

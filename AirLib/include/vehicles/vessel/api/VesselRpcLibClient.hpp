@@ -22,6 +22,7 @@ namespace msr {
 
             void setVesselControls(const VesselApiBase::VesselControls& controls, const std::string& vehicle_name = "");
 			void setDisturbanceControls(const VesselApiBase::DisturbanceControls& controls, const std::string& vehicle_name = "");
+            void setWaterwayDepthControls(const  VesselApiBase::WaterwayDepthControls& controls, const std::string& vehicle_name = "");
             VesselApiBase::VesselState getVesselState(const std::string& vehicle_name = "");
             // VesselApiBase::VesselState getActuation(const std::string& vehicle_name = "", const int actuator);
 

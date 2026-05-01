@@ -6,8 +6,8 @@
 #include "Materials/MaterialInterface.h"
 #include "Engine/Texture2D.h"
 #include "Materials/MaterialInstanceDynamic.h"
-#include "Runtime/Engine/Classes/Components/StaticMeshComponent.h"
-#include "Runtime/Engine/Public/SkeletalRenderPublic.h"
+#include "Components/StaticMeshComponent.h"
+#include "SkeletalRenderPublic.h"
 
 #include "AnnotationComponent.generated.h"
 
